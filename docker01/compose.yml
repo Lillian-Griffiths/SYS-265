@@ -1,0 +1,35 @@
+services:
+
+  db:
+    image: mariadb:10.11
+    container_name: nc-db
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - backend
+
+  nextcloud:
+    image: nextcloud:27
+    container_name: nc-app
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    volumes:
+      - nextcloud_data:/var/www/html
+    networks:
+      - backend
+
+volumes:
+  db_data:
+  nextcloud_data:
+
+networks:
+  backend:
+    driver: bridge
