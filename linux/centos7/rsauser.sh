@@ -1,13 +1,12 @@
 #!/bin/bash
 
-USERNAME=$1
+USER_NAME="$1"
+PUBLIC_KEY_PATH="$2"
 
-useradd -m -d /home/$USERNAME -s /bin/bash $USERNAME
-
-mkdir /home/$USERNAME/.ssh
-
-cp SYS265/linux/public-keys/id_rsa.pub /home/$USERNAME/.ssh/authorized_keys
-
-chmod 700 /home/$USERNAME/.ssh
-chmod 600 /home/$USERNAME/.ssh/authorized_keys
-chown -R $USERNAME:$USERNAME /home/$USERNAME/.ssh
+sudo useradd -m -d /home/$USER_NAME -s /bin/bash "$USER_NAME"
+sudo passwd -l "$USER_NAME"
+sudo mkdir -p /home/$USER_NAME/.ssh
+sudo cp "$PUBLIC_KEY_PATH" /home/$USER_NAME/.ssh/authorized_keys
+sudo chmod 700 /home/$USER_NAME/.ssh
+sudo chmod 600 /home/$USER_NAME/.ssh/authorized_keys
+sudo chown -R "$USER_NAME:$USER_NAME" /home/$USER_NAME/.ssh
