@@ -1,0 +1,4 @@
+ansible_user: deployer         # Or whichever sudo-capable user you have  # Remove this line if using SSH keys
+ansible_become: true
+ansible_become_method: sudo
+ansible_become_pass: "YourSudoPassword"
